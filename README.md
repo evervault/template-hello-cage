@@ -59,5 +59,3 @@ Or check it out in [index.js](./index.js).
 
 --- 
 If you want to know more about Evervault, check out our [documentation](https://docs.evervault.com).
-
-_Note: you'll need you documentation login to access these docs for now. If you don't have one, please [join our waiting list](https://evervault.com)_
