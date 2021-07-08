@@ -1,3 +1,7 @@
+// The [Evervault Node.js SDK](https://docs.evervault.com/sdk/nodejs) is pre-initialized in all Cages as the globally-scoped `evervault` object.
+// This allows you to encrypt the result, and store it in your database.
+/*global evervault*/
+
 // event is the data you encrypted and passed into `evervault.run` from your server. 
 // The cage automatically decrypts the data and maintains its structure
 // so you can treat event exactly as you did when you passed it into `evervault.run`.
