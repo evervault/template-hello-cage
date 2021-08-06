@@ -5,13 +5,13 @@ This is a simple Evervault Cage example, to help get you up and running on the E
 
 ## Getting started with Evervault
 
-Evervault consists of two parts, encrypting your data at source, using either our Node SDK, or Browser and React SDKs and then sending that encrypted data to a cage to be processed securely.
+Evervault consists of two parts, encrypting your data at source, using either our Node SDK, or Browser and React SDKs and then sending that encrypted data to a Cage to be processed securely.
 
-This Cage takes a payload that should contain a `name` key. Running the cage is very simple.
+This Cage takes a payload that should contain a `name` key. Running the Cage is very simple.
 
 ## The steps
 1. Encrypt your data at source, using either the Node SDK or Browser and React SDKs.
-2. Process the encrypted data in a cage
+2. Process the encrypted data in a Cage
 
 ### Encrypting at source
 ```javascript
@@ -25,7 +25,7 @@ const evervault = new Evervault('<YOUR-API-KEY>');
 const encrypted = await evervault.encrypt({ name: 'Claude Shannon' });
 ```
 
-### Process your encrypted data in a cage
+### Process your encrypted data in a Cage
 You should encrypt this payload using either our Node SDK or Browser SDK, then run it in the Hello Cage:
 
 ```javascript
@@ -35,21 +35,21 @@ const result = await evervault.run('hello-cage', encrypted);
 
 ## Understanding the Cage
 This Cage is very simple. Here is the full code:
-```javascript
-exports.handler = async (event) => {
-  console.debug('This is the data that has arrived into the Cage.', event);
 
-  if (event.name && event.name.length > 0) {
+```javascript
+exports.handler = async (data) => {
+  if (data.name && data.name.length > 0) {
+    console.debug(`A name of length ${data.name.length} has arrived into the Cage.`);
+
     return {
-      message: `Hello, ${event.name}!`,
-      details: 'The cage is decrypting your name and returning it in plaintext',
-      encrypted: await evervault.encrypt(event.name),
+      message: `Hello from a Cage! It seems you have ${data.name.length} letters in your name`,
+      name: await evervault.encrypt(data.name),
     };
   } else {
+    console.debug('An empty name has arrived into the Cage.');
+
     return {
-      message: 'Hello, world!',
-      details:
-        'Please send an encrypted `name` parameter to show Cage decryption in action',
+      message: 'Hello from a Cage! Send an encrypted `name` parameter to show Cage decryption in action',
     };
   }
 };
