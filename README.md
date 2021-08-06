@@ -22,7 +22,7 @@ const Evervault = require('@evervault/sdk');
 const evervault = new Evervault('<YOUR-API-KEY>');
 
 // Encrypt your data
-const encrypted = await evervault.encrypt({ name: 'Elon Musk' });
+const encrypted = await evervault.encrypt({ name: 'Claude Shannon' });
 ```
 
 ### Process your encrypted data in a cage
