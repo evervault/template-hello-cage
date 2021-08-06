@@ -38,7 +38,7 @@ This Cage is very simple. Here is the full code:
 
 ```javascript
 exports.handler = async (data) => {
-  if (data.name && data.name.length > 0) {
+  if (data.name && typeof data.name === "string") {
     console.debug(`A name of length ${data.name.length} has arrived into the Cage.`);
 
     return {
