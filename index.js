@@ -6,8 +6,8 @@
 // automatically decrypts the data and maintains its structure so you can treat event exactly as 
 // you did when you passed it into `evervault.run`.
 exports.handler = async (data) => {
-  // Check if the data sent into the Cage has a key called `name` with a value that is longer than 0
-  if (data.name && data.name.length > 0) {
+  // Check if the data sent into the Cage included the `name` key
+  if (data.name && typeof data.name === "string") {
     console.debug(`A name of length ${data.name.length} has arrived into the Cage.`);
 
     // Process the decrypted name value, and re-encrypt the original name using the globally available evervault package.
