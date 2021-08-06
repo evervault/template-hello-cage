@@ -1,28 +1,26 @@
-// The [Evervault Node.js SDK](https://docs.evervault.com/sdk/nodejs) is pre-initialized in all Cages as the globally-scoped `evervault` object.
-// This allows you to encrypt the result, and store it in your database.
-/*global evervault*/
+// The Evervault Node.js SDK (https://docs.evervault.com/sdk/nodejs) is pre-initialized in 
+// all Cages as the globally-scoped `evervault` object.This allows you to encrypt the result, 
+// and store it in your database.
 
-// event is the data you encrypted and passed into `evervault.run` from your server. 
-// The cage automatically decrypts the data and maintains its structure
-// so you can treat event exactly as you did when you passed it into `evervault.run`.
+// `data` is the data you encrypted and passed into `evervault.run` from your server. The Cage 
+// automatically decrypts the data and maintains its structure so you can treat event exactly as 
+// you did when you passed it into `evervault.run`.
+exports.handler = async (data) => {
+  // Check if the data sent into the Cage included the `name` key
+  if (data.name && typeof data.name === "string") {
+    console.debug(`A name of length ${data.name.length} has arrived into the Cage.`);
 
-exports.handler = async (event) => {
-  console.debug('This is the data that has arrived into the cage.', event);
-
-  // Check if the event sent into the cage has a key called `name` and `name` has a value that is longer than 0
-  if (event.name && event.name.length > 0) {
-    // Return the decrypted name value, and then re-encrypt using the globally available evervault package.
-    // Note all cages have the evervault SDK automatically injected into their global scope.
+    // Process the decrypted name value, and re-encrypt the original name using the globally available evervault package.
+    // Note all Cages have the evervault SDK automatically injected into their global scope.
     return {
-      message: `Hello, ${event.name}!`,
-      details: 'The cage is decrypting your name and returning it in plaintext',
-      encrypted: await evervault.encrypt(event.name),
+      message: `Hello from a Cage! It seems you have ${data.name.length} letters in your name`,
+      name: await evervault.encrypt(data.name),
     };
   } else {
+    console.debug('An empty name has arrived into the Cage.');
+
     return {
-      message: 'Hello, world!',
-      details:
-        'Please send an encrypted `name` parameter to show cage decryption in action',
+      message: 'Hello from a Cage! Send an encrypted `name` parameter to show Cage decryption in action',
     };
   }
 };
